@@ -1,0 +1,64 @@
+/* กำหนดให้ body และ html เต็มหน้าจอ ไม่มี margin หรือ padding */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* ทำให้ #root ครอบคลุมพื้นที่และจัดเนื้อหาเป็นแนวตั้ง */
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  position: relative; /* เพื่อซ้อนทับ z-index ให้กับพื้นหลัง */
+  z-index: 1;
+}
+
+/* ปรับ .logo ให้ขนาดเหมาะสมและ animation */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* อนิเมชันหมุนโลโก้ */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* สไตล์การ์ดเนื้อหา */
+.card {
+  padding: 2em;
+  background: rgba(255 255 255 / 0.8);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+/* สีตัวอักษรสำหรับลิงก์อ่านเอกสาร */
+.read-the-docs {
+  color: #888;
+}
