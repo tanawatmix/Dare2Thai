@@ -5,6 +5,7 @@ import './App.css';
 
 import HomeUI from "./view/home_ui.jsx";
 import LoginUI from "./view/login.jsx";
+import RegisterUI from "./view/register.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<HomeUI />} />
           <Route path="/home" element={<HomeUI />} />
           <Route path="/login" element={<LoginUI />} />
+          <Route path="/register" element={<RegisterUI />} />
         </Routes>
       </BrowserRouter>
     </>

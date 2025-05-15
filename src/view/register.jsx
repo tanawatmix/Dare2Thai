@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   TextField,
@@ -7,13 +7,21 @@ import {
   Link,
   Grid,
   Paper,
+  Avatar,
 } from "@mui/material";
-import LanguageIcon from "@mui/icons-material/Language";
-import { useNavigate } from "react-router-dom";
-import ThaiBG from "./assets/m.jpg"; //พื้นหลัง
+import { useNavigate, Link as RouterLink } from "react-router-dom"; // <-- import RouterLink
+import ThaiBG from "./assets/m.jpg"; // พื้นหลัง
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const navigate = useNavigate();
+  const [preview, setPreview] = useState(null); // <-- เพิ่ม state preview
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    }
+  };
 
   return (
     <Box
@@ -43,6 +51,7 @@ export default function LoginPage() {
           zIndex: 0,
         }}
       />
+
       <Paper
         elevation={8}
         sx={{
@@ -51,13 +60,13 @@ export default function LoginPage() {
           display: "flex",
           flexDirection: "column",
           borderRadius: 5,
-          backgroundColor: "rgba(255, 255, 255, 0.8)", // เปลี่ยนจาก rgba เป็นทึบแสง
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
           maxWidth: 700,
           width: "100%",
         }}
       >
         <Grid container spacing={4} alignItems="center">
-          {/* ซ้าย: ฟอร์ม login */}
+          {/* ซ้าย: ฟอร์ม Register */}
           <Grid item xs={12} md={6}>
             <Typography
               variant="h4"
@@ -66,7 +75,7 @@ export default function LoginPage() {
               color="#f57c00"
               gutterBottom
             >
-              Welcome to Dare2Thai
+              Register to Dare2Thai
             </Typography>
 
             <Box component="form">
@@ -86,16 +95,46 @@ export default function LoginPage() {
                   },
                 }}
               />
-
-              <Typography fontWeight="bold" mt={2} mb={1} textAlign={"left"}>
+              <Typography fontWeight="bold" mb={1} textAlign={"left"}>
+                UserName
+              </Typography>
+              <TextField
+                fullWidth
+                variant="outlined"
+                margin="dense"
+                placeholder="Enter your UserName"
+                sx={{
+                  borderRadius: 2,
+                  backgroundColor: "#fff",
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 2,
+                  },
+                }}
+              />
+              <Typography fontWeight="bold" mb={1} textAlign={"left"}>
                 Password
               </Typography>
               <TextField
                 fullWidth
-                type="password"
                 variant="outlined"
                 margin="dense"
-                placeholder="Enter your password"
+                placeholder="Enter your Password"
+                sx={{
+                  borderRadius: 2,
+                  backgroundColor: "#fff",
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 2,
+                  },
+                }}
+              />
+              <Typography fontWeight="bold" mb={1} textAlign={"left"}>
+                Confirm Password
+              </Typography>
+              <TextField
+                fullWidth
+                variant="outlined"
+                margin="dense"
+                placeholder="Confirm your Password"
                 sx={{
                   borderRadius: 2,
                   backgroundColor: "#fff",
@@ -106,15 +145,15 @@ export default function LoginPage() {
               />
 
               <Typography variant="body2" mt={2} align="center">
-                Don't have an account?{" "}
+                Already have an account?{" "}
                 <Link
-                  href="#"
+                  component={RouterLink}
+                  to="/login"
                   underline="hover"
                   fontWeight="bold"
                   color="primary"
-                  onClick={() => navigate("/register")}
                 >
-                  Register
+                  Login
                 </Link>
               </Typography>
 
@@ -122,13 +161,13 @@ export default function LoginPage() {
                 <Button
                   variant="contained"
                   sx={{
-                    backgroundColor: "#1976d2",
+                    backgroundColor: "#43a047",
                     fontWeight: "bold",
                     px: 4,
-                    "&:hover": { backgroundColor: "#1565c0" },
+                    "&:hover": { backgroundColor: "#388e3c" },
                   }}
                 >
-                  Login
+                  Register
                 </Button>
 
                 <Button
@@ -147,12 +186,25 @@ export default function LoginPage() {
             </Box>
           </Grid>
 
-          {/* ขวา: ไอคอน + ชื่อ */}
+          {/* ขวา: ช่องอัปโหลดรูป */}
           <Grid item xs={12} md={6} textAlign="center">
-            <LanguageIcon sx={{ fontSize: 120, color: "#f57c00" }} />
-            <Typography variant="h5" fontWeight="bold" mt={2} color="#f57c00">
-              Dare2Thai
+            <Typography variant="h6" fontWeight="bold" mb={2} color="#f57c00">
+              Upload Profile Picture
             </Typography>
+
+            <Avatar
+              src={preview}
+              sx={{ width: 120, height: 120, margin: "0 auto", mb: 2 }}
+            />
+            <Button variant="outlined" component="label">
+              Choose File
+              <input
+                type="file"
+                hidden
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+            </Button>
           </Grid>
         </Grid>
       </Paper>
